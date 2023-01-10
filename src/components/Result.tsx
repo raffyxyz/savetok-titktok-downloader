@@ -36,7 +36,7 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
     link.click();
 
     // Clean up and remove the link
-    link.parentNode.removeChild(link);
+    link.parentNode?.removeChild(link);
   };
 
   return (
