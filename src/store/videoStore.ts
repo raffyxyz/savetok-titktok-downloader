@@ -1,14 +1,15 @@
 import create from 'zustand';
 import axios from 'axios';
+import { db } from '../db/dexie';
 
 interface Video {
-  video: object;
+  video: any;
   loading: boolean;
   notTiktokLink: boolean;
   fetchVideo: (url: string) => void;
 }
 
-export const useVideo = create<Video>((set) => ({
+export const useVideo = create<Video>((set, get) => ({
   video: {},
   url: '',
   loading: false,
@@ -24,6 +25,13 @@ export const useVideo = create<Video>((set) => ({
       // Checks if the response is undefined
       if (typeof result.data.data !== 'undefined') {
         set({ video: result.data.data });
+
+        // Save history as indexeddb
+        const id = await db.history.add({
+          cover: get().video.cover,
+          title: get().video.title,
+          url: url,
+        });
       } else {
         set({ notTiktokLink: true });
       }
