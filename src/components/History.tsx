@@ -8,6 +8,7 @@ import {
   Tooltip,
   ScrollArea,
 } from '@mantine/core';
+import { showNotification } from '@mantine/notifications';
 import { IconTrash, IconCopy, IconCircleMinus } from '@tabler/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/dexie';
@@ -17,14 +18,29 @@ const History: React.FC = () => {
     db.history.orderBy('id').reverse().toArray()
   );
 
+  const historyLength = history?.length;
+
   const copyLink = (url: string) => {
     navigator.clipboard.writeText(url);
+    showNotification({
+      title: 'Yes!',
+      message: 'Url copied.',
+      color: 'grape',
+    });
   };
   const deleteVideoHistory = (id: number) => {
     db.history.delete(id);
   };
 
   const deleteHistory = () => {
+    if (historyLength === 0) {
+      showNotification({
+        title: 'Warning',
+        message: 'No history to be deleted.',
+        color: 'yellow',
+      });
+      return null;
+    }
     db.history.clear();
   };
 
@@ -35,20 +51,18 @@ const History: React.FC = () => {
   };
   return (
     <>
-      {history?.length !== 0 ? (
-        <Group position='right'>
-          <Tooltip label='Delete history.' color='red' position='top' withArrow>
-            <ActionIcon
-              color='red'
-              variant='transparent'
-              mb={10}
-              onClick={() => deleteHistory()}
-            >
-              <IconTrash size={18} />
-            </ActionIcon>
-          </Tooltip>
-        </Group>
-      ) : null}
+      <Group position='right'>
+        <Tooltip label='Delete history.' color='red' position='top' withArrow>
+          <ActionIcon
+            color='red'
+            variant='transparent'
+            mb={10}
+            onClick={() => deleteHistory()}
+          >
+            <IconTrash size={18} />
+          </ActionIcon>
+        </Tooltip>
+      </Group>
 
       <ScrollArea style={{ height: 450 }}>
         {history?.map((h: any) => (

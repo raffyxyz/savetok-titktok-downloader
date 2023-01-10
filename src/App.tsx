@@ -1,4 +1,5 @@
 import { MantineProvider, Container, Title } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 import Header from './components/Header';
 import Fields from './components/Fields';
 
@@ -12,18 +13,20 @@ export default function App() {
       withGlobalStyles
       withNormalizeCSS
     >
-      <Container size='md' px='md'>
-        <Header />
+      <NotificationsProvider>
+        <Container size='md' px='md'>
+          <Header />
 
-        <Title order={3} align='center' sx={{ marginTop: '4em' }}>
-          Tiktok Video Downloader
-        </Title>
-        <Title order={6} align='center'>
-          Download Tiktok Videos Without Watermark
-        </Title>
+          <Title order={3} align='center' sx={{ marginTop: '4em' }}>
+            Tiktok Video Downloader
+          </Title>
+          <Title order={6} align='center'>
+            Download Tiktok Videos Without Watermark
+          </Title>
 
-        <Fields />
-      </Container>
+          <Fields />
+        </Container>
+      </NotificationsProvider>
     </MantineProvider>
   );
 }
