@@ -43,10 +43,10 @@ const Header: React.FC = () => {
           <>
             <Title order={5}>{data.question}</Title>
             <Text>{data.answer}</Text>
+            <Space h='lg' />
           </>
         ))}
 
-        <Space h='lg' />
         <Title order={5}>Tech used</Title>
         <List
           spacing='xs'

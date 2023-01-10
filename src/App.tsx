@@ -1,5 +1,6 @@
 import { MantineProvider, Container, Title } from '@mantine/core';
 import Header from './components/Header';
+import Fields from './components/Fields';
 
 export default function App() {
   return (
@@ -20,6 +21,8 @@ export default function App() {
         <Title order={6} align='center'>
           Download Tiktok Videos Without Watermark
         </Title>
+
+        <Fields />
       </Container>
     </MantineProvider>
   );
