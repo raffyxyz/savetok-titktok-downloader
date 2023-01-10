@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import {
+  useMantineColorScheme,
   Drawer,
   Group,
+  ActionIcon,
   Button,
   Anchor,
   Title,
@@ -11,11 +13,14 @@ import {
   List,
   ThemeIcon,
 } from '@mantine/core';
-import { IconCheck } from '@tabler/icons';
+import { IconCheck, IconSun, IconMoonStars } from '@tabler/icons';
 import { headerData } from '../data';
 
 const Header: React.FC = () => {
   const [opened, setOpened] = useState(false);
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
+
   return (
     <Group position='apart' mt='md'>
       <Anchor underline={false} size={30} variant='text' weight='bold'>
@@ -67,9 +72,19 @@ const Header: React.FC = () => {
         <Title order={5}>Developed by</Title>
         <Text>{headerData.dev}</Text>
       </Drawer>
-      <Button variant='light' color='grape' onClick={() => setOpened(true)}>
-        About
-      </Button>
+      <Group>
+        <ActionIcon
+          variant='transparent'
+          color={dark ? 'yellow' : 'blue'}
+          onClick={() => toggleColorScheme()}
+          title='Toggle color scheme'
+        >
+          {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+        </ActionIcon>
+        <Button variant='light' color='grape' onClick={() => setOpened(true)}>
+          About
+        </Button>
+      </Group>
     </Group>
   );
 };
