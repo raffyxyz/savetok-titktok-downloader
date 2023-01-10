@@ -10,6 +10,7 @@ import {
   Alert,
 } from '@mantine/core';
 import { IconReportSearch, IconAlertCircle, IconHistory } from '@tabler/icons';
+import History from './History';
 
 interface ResultProps {
   video: any;
@@ -19,6 +20,24 @@ interface ResultProps {
 
 const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
   const noVideoData = Object.keys(video).length === 0;
+
+  //The best download implementation
+  const downloadVideo = (url: string, filename: string) => {
+    const link = document.createElement('a');
+    link.href = url;
+
+    link.setAttribute('target', '_blank');
+    link.setAttribute('download', `${filename}.mp4`);
+
+    // Append to html link element page
+    document.body.appendChild(link);
+
+    // Start download
+    link.click();
+
+    // Clean up and remove the link
+    link.parentNode.removeChild(link);
+  };
 
   return (
     <Tabs
@@ -52,7 +71,7 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
               <Button
                 color='grape'
                 mt='md'
-                // onClick={() => downloadVideo(video.play, video.id)}
+                onClick={() => downloadVideo(video.play, video.id)}
               >
                 Download
               </Button>
@@ -88,7 +107,7 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
       </Tabs.Panel>
 
       <Tabs.Panel value='history' pt='xs'>
-        {/* <VideoHistory /> */}
+        <History />
       </Tabs.Panel>
     </Tabs>
   );

@@ -40,11 +40,11 @@ const Header: React.FC = () => {
         <Space h='lg' />
 
         {headerData.faq?.map((data: any, idx: number) => (
-          <>
+          <div key={idx}>
             <Title order={5}>{data.question}</Title>
             <Text>{data.answer}</Text>
             <Space h='lg' />
-          </>
+          </div>
         ))}
 
         <Title order={5}>Tech used</Title>
