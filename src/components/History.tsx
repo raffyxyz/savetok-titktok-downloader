@@ -14,16 +14,14 @@ import { db } from '../db/dexie';
 import { useHistory } from '../store/historyStore';
 
 const History: React.FC = () => {
-  const history = useLiveQuery(() =>
-    db.history.orderBy('id').reverse().toArray()
-  );
-
-  console.log(history);
-
   const copyLink = useHistory((state) => state.copyLink);
   const deleteVideo = useHistory((state) => state.deleteVideo);
   const clearHistory = useHistory((state) => state.clearHistory);
   const trimTitle = useHistory((state) => state.trimTitle);
+
+  const history = useLiveQuery(() =>
+    db.history.orderBy('id').reverse().toArray()
+  );
 
   const historyLength = history?.length;
   return (
