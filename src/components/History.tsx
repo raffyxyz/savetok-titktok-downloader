@@ -95,6 +95,7 @@ const History: React.FC = () => {
                 height={40}
                 width={50}
                 alt='Video cover'
+                withPlaceholder
               />
               <Tooltip
                 multiline
