@@ -18,6 +18,8 @@ const History: React.FC = () => {
     db.history.orderBy('id').reverse().toArray()
   );
 
+  console.log(history);
+
   const copyLink = useHistory((state) => state.copyLink);
   const deleteVideo = useHistory((state) => state.deleteVideo);
   const clearHistory = useHistory((state) => state.clearHistory);

@@ -35,6 +35,6 @@ export const useHistory = create<History>((set) => ({
   trimTitle: (str: string) => {
     if (str.length < 16) return str;
 
-    return str.substring(0, 16) + '..'.trim();
+    return str.substring(0, 15) + '..'.trim();
   },
 }));
