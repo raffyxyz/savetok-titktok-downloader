@@ -8,47 +8,22 @@ import {
   Tooltip,
   ScrollArea,
 } from '@mantine/core';
-import { showNotification } from '@mantine/notifications';
 import { IconTrash, IconCopy, IconCircleMinus } from '@tabler/icons';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { db } from '../db/dexie';
+import { useHistory } from '../store/historyStore';
 
 const History: React.FC = () => {
   const history = useLiveQuery(() =>
     db.history.orderBy('id').reverse().toArray()
   );
 
+  const copyLink = useHistory((state) => state.copyLink);
+  const deleteVideo = useHistory((state) => state.deleteVideo);
+  const clearHistory = useHistory((state) => state.clearHistory);
+  const trimTitle = useHistory((state) => state.trimTitle);
+
   const historyLength = history?.length;
-
-  const copyLink = (url: string) => {
-    navigator.clipboard.writeText(url);
-    showNotification({
-      title: 'Yes!',
-      message: 'Url copied.',
-      color: 'grape',
-    });
-  };
-  const deleteVideoHistory = (id: number) => {
-    db.history.delete(id);
-  };
-
-  const deleteHistory = () => {
-    if (historyLength === 0) {
-      showNotification({
-        title: 'Warning',
-        message: 'No history to be deleted.',
-        color: 'yellow',
-      });
-      return null;
-    }
-    db.history.clear();
-  };
-
-  const trimTitle = (str: string) => {
-    if (str.length < 16) return str;
-
-    return str.substring(0, 16) + '..'.trim();
-  };
   return (
     <>
       <Group position='right'>
@@ -57,7 +32,7 @@ const History: React.FC = () => {
             color='red'
             variant='transparent'
             mb={10}
-            onClick={() => deleteHistory()}
+            onClick={() => clearHistory(historyLength)}
           >
             <IconTrash size={18} />
           </ActionIcon>
@@ -112,10 +87,7 @@ const History: React.FC = () => {
                 <ActionIcon color='blue' onClick={() => copyLink(h.url)}>
                   <IconCopy size={16} />
                 </ActionIcon>
-                <ActionIcon
-                  color='red'
-                  onClick={() => deleteVideoHistory(h.id)}
-                >
+                <ActionIcon color='red' onClick={() => deleteVideo(h.id)}>
                   <IconCircleMinus size={16} />
                 </ActionIcon>
               </Group>
