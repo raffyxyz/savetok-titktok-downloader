@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   MantineProvider,
   ColorSchemeProvider,
@@ -33,7 +32,7 @@ export default function App() {
         withGlobalStyles
         withNormalizeCSS
       >
-        <NotificationsProvider>
+        <NotificationsProvider position='bottom-center'>
           <Container size='md' px='md'>
             <Header />
 

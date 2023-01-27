@@ -77,9 +77,9 @@ const Header: React.FC = () => {
           variant='transparent'
           color={dark ? 'yellow' : 'blue'}
           onClick={() => toggleColorScheme()}
-          title='Toggle dark mode'
+          title={dark ? 'Light mode' : 'Dark mode'}
         >
-          {dark ? <IconSun size={18} /> : <IconMoonStars size={18} />}
+          {dark ? '☀️' : '🌙'}
         </ActionIcon>
         <Button variant='light' color='grape' onClick={() => setOpened(true)}>
           About
