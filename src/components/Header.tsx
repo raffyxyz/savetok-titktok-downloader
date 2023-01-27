@@ -23,7 +23,13 @@ const Header: React.FC = () => {
 
   return (
     <Group position='apart' mt='md'>
-      <Anchor underline={false} size={30} variant='text' weight='bold'>
+      <Anchor
+        underline={false}
+        size={30}
+        variant='text'
+        weight='bold'
+        color='grape'
+      >
         SaveTok
       </Anchor>
 
