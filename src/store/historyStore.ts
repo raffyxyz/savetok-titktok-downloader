@@ -13,8 +13,7 @@ export const useHistory = create<History>((set) => ({
   copyLink: (url: string) => {
     navigator.clipboard.writeText(url);
     showNotification({
-      title: 'Yes!',
-      message: 'Url copied.',
+      message: '🙂 Url copied.',
       color: 'grape',
     });
   },
@@ -24,8 +23,7 @@ export const useHistory = create<History>((set) => ({
   clearHistory: (historyLength: number | undefined) => {
     if (historyLength === 0) {
       showNotification({
-        title: 'Warning',
-        message: 'No history to be deleted.',
+        message: '⚠️ No history to be deleted.',
         color: 'yellow',
       });
       return null;
