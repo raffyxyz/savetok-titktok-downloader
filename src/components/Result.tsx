@@ -11,6 +11,7 @@ import {
   Progress,
 } from '@mantine/core';
 import { IconReportSearch, IconAlertCircle, IconHistory } from '@tabler/icons';
+import useDownloader from 'react-use-downloader';
 import History from './History';
 
 interface ResultProps {
@@ -22,22 +23,12 @@ interface ResultProps {
 const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
   const noVideoData = Object.keys(video).length === 0;
 
-  const [downloading, setDownloading] = useState<boolean>(false);
+  // Downloader
+  const { percentage, download, isInProgress } = useDownloader();
 
   //The best download implementation
   const downloadVideo = (url: string, filename: string) => {
-    // const link = document.createElement('a');
-    // link.href = url;
-    // link.setAttribute('target', '_blank');
-    // link.setAttribute('download', `${filename}.mp4`);
-    // // Append to html link element page
-    // document.body.appendChild(link);
-    // // Start download
-    // link.click();
-    // // Clean up and remove the link
-    // link.parentNode?.removeChild(link);
-
-    setDownloading(true);
+    download(url, `${filename}.mp4`);
   };
 
   return (
@@ -70,15 +61,19 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
             </Text>
 
             {/* Progress bar while downloading */}
-            {downloading ? <Progress mt='md' color='grape' value={50} /> : null}
+            {isInProgress ? (
+              <Progress mt='md' color='grape' value={percentage} />
+            ) : null}
 
             <Center>
               <Button
                 color='grape'
                 mt='md'
                 onClick={() => downloadVideo(video.play, video.id)}
+                loaderPosition='right'
+                loading={isInProgress}
               >
-                {downloading ? 'Downloading' : 'Download'}
+                {isInProgress ? 'Downloading' : 'Download'}
               </Button>
             </Center>
           </Card>
