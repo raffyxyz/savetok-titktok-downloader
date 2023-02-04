@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Center,
   Button,
@@ -9,9 +9,11 @@ import {
   Skeleton,
   Alert,
   Progress,
+  Group,
 } from '@mantine/core';
 import { IconReportSearch, IconAlertCircle, IconHistory } from '@tabler/icons';
 import useDownloader from 'react-use-downloader';
+import prettyBytes from 'pretty-bytes';
 import History from './History';
 
 interface ResultProps {
@@ -24,7 +26,7 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
   const noVideoData = Object.keys(video).length === 0;
 
   // Downloader
-  const { percentage, download, isInProgress } = useDownloader();
+  const { percentage, download, isInProgress, size, elapsed } = useDownloader();
 
   //The best download implementation
   const downloadVideo = (url: string, filename: string) => {
@@ -62,7 +64,14 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
 
             {/* Progress bar while downloading */}
             {isInProgress ? (
-              <Progress mt='md' color='grape' value={percentage} />
+              <>
+                <Progress mt='md' color='grape' value={percentage} />
+                <Group position='right'>
+                  <Text fz='sm' c='dimmed'>
+                    {prettyBytes(size)}
+                  </Text>
+                </Group>
+              </>
             ) : null}
 
             <Center>
