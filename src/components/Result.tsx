@@ -79,15 +79,6 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
             ) : null}
 
             <Center>
-              {/* <Button
-                color='grape'
-                mt='md'
-                onClick={() => downloadVideo(video.play, video.id)}
-                loaderPosition='right'
-                loading={isInProgress}
-              >
-                {isInProgress ? 'Downloading' : 'Download'}
-              </Button> */}
               {!isInProgress ? (
                 <Button
                   color='grape'
