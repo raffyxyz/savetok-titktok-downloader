@@ -26,7 +26,8 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
   const noVideoData = Object.keys(video).length === 0;
 
   // Downloader
-  const { percentage, download, isInProgress, size, elapsed } = useDownloader();
+  const { percentage, download, isInProgress, size, elapsed, cancel } =
+    useDownloader();
 
   //The best download implementation
   const downloadVideo = (url: string, filename: string) => {
@@ -66,16 +67,19 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
             {isInProgress ? (
               <>
                 <Progress mt='md' color='grape' value={percentage} />
-                <Group position='right'>
-                  <Text fz='sm' c='dimmed'>
+                <Group position='apart'>
+                  <Text fz='xs' c='dimmed'>
                     {prettyBytes(size)}
+                  </Text>
+                  <Text fz='xs' c='dimmed'>
+                    {percentage}%
                   </Text>
                 </Group>
               </>
             ) : null}
 
             <Center>
-              <Button
+              {/* <Button
                 color='grape'
                 mt='md'
                 onClick={() => downloadVideo(video.play, video.id)}
@@ -83,7 +87,22 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
                 loading={isInProgress}
               >
                 {isInProgress ? 'Downloading' : 'Download'}
-              </Button>
+              </Button> */}
+              {!isInProgress ? (
+                <Button
+                  color='grape'
+                  mt='md'
+                  onClick={() => downloadVideo(video.play, video.id)}
+                  loaderPosition='right'
+                  loading={isInProgress}
+                >
+                  Download
+                </Button>
+              ) : (
+                <Button color='red' mt='md' onClick={() => cancel()}>
+                  Cancel
+                </Button>
+              )}
             </Center>
           </Card>
         )}
