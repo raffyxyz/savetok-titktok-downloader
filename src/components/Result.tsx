@@ -31,7 +31,7 @@ const Result: React.FC<ResultProps> = ({ video, loader, invalidLink }) => {
 
   //The best download implementation
   const downloadVideo = (url: string, filename: string) => {
-    download(url, `${filename}.mp4`);
+    download(url, `SaveTok-${filename}.mp4`);
   };
 
   return (
