@@ -1,4 +1,4 @@
-# SaveTok
+# TikTokSave
 
 ## Download tiktok videos in hd and without watermark.
 
