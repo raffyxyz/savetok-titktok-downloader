@@ -1,6 +1,6 @@
-import create from 'zustand';
-import axios from 'axios';
-import { db } from '../db/dexie';
+import create from "zustand";
+import axios from "axios";
+import { db } from "../db/dexie";
 
 interface Video {
   video: any;
@@ -11,7 +11,7 @@ interface Video {
 
 export const useVideo = create<Video>((set, get) => ({
   video: {},
-  url: '',
+  url: "",
   loading: false,
   notTiktokLink: false,
   fetchVideo: async (url: string) => {
@@ -19,11 +19,11 @@ export const useVideo = create<Video>((set, get) => ({
       set({ loading: true, notTiktokLink: false, video: {} });
 
       const result = await axios.get(
-        `https://www.tikwm.com/api/?url=${url}?hd=1`
+        `${import.meta.env.VITE_API_URL}?url=${url}?hd=1`
       );
 
       // Checks if the response is undefined
-      if (typeof result.data.data !== 'undefined') {
+      if (typeof result.data.data !== "undefined") {
         set({ video: result.data.data });
 
         // Save history as indexeddb
